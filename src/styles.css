@@ -18,17 +18,23 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
 button {
   min-height: 38px;
+  padding: 0 14px;
   border: 1px solid var(--border);
   border-radius: 7px;
   background: #ffffff;
   color: #172033;
   cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--primary);
 }
 
 .app {
@@ -47,7 +53,7 @@ button {
 }
 
 .hero {
-  min-height: 250px;
+  min-height: 220px;
   display: grid;
   align-content: center;
   gap: 14px;
@@ -68,13 +74,12 @@ button {
 }
 
 .hero h1 {
-  font-size: clamp(34px, 6vw, 62px);
-  line-height: 1;
-  letter-spacing: 0;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.05;
 }
 
 .hero span {
-  max-width: 860px;
+  max-width: 900px;
   color: #526071;
   line-height: 1.75;
 }
@@ -101,15 +106,34 @@ button {
   font-size: 30px;
 }
 
+.notice {
+  margin-bottom: 18px;
+  padding: 12px 16px;
+  border: 1px solid color-mix(in srgb, var(--primary) 35%, var(--border));
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--primary) 7%, #ffffff);
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
 .workspace {
   display: grid;
-  grid-template-columns: 300px 1fr;
+  grid-template-columns: 340px 1fr;
   gap: 18px;
   margin-bottom: 18px;
 }
 
+.workspace.bottom {
+  grid-template-columns: 1fr 1.4fr;
+}
+
 .panel {
   padding: 22px;
+  margin-bottom: 18px;
+}
+
+.workspace .panel {
+  margin-bottom: 0;
 }
 
 .panel h2,
@@ -118,18 +142,105 @@ button {
   margin-top: 0;
 }
 
-.chips {
+.mt {
+  margin-top: 22px;
+}
+
+.hint {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* 点位平面图 */
+.sitemap {
+  width: 100%;
+  border-radius: 8px;
+  background: linear-gradient(180deg, #0f1f3d 0%, #16294f 70%, #1b3a2f 100%);
+}
+
+.site-bound {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-dasharray: 2 1.5;
+  stroke-width: 0.4;
+}
+
+.site-label {
+  fill: rgba(255, 255, 255, 0.55);
+  font-size: 3.4px;
+}
+
+.site-pos {
+  cursor: pointer;
+}
+
+.pos-dot {
+  fill: #f8fafc;
+  stroke: var(--primary);
+  stroke-width: 1;
+}
+
+.pos-dot.active {
+  fill: var(--accent);
+  stroke: #ffffff;
+}
+
+.safety-ring {
+  fill: rgba(245, 158, 11, 0.12);
+  stroke: var(--accent);
+  stroke-width: 0.5;
+  stroke-dasharray: 1.6 1.2;
+}
+
+.pos-name {
+  fill: #ffffff;
+  font-size: 3.6px;
+  font-weight: 700;
+}
+
+.pos-zone {
+  fill: rgba(255, 255, 255, 0.6);
+  font-size: 2.8px;
+}
+
+/* 型号配额 */
+.quota-list {
+  display: grid;
+  gap: 14px;
+}
+
+.quota-head {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 6px;
 }
 
-.chips button {
-  padding: 0 12px;
-  border-color: color-mix(in srgb, var(--primary) 24%, var(--border));
-  background: color-mix(in srgb, var(--primary) 8%, #ffffff);
+.quota-head span {
+  color: #64748b;
+  font-size: 13px;
 }
 
+.bar {
+  height: 8px;
+  border-radius: 99px;
+  background: #e8eef7;
+  overflow: hidden;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  border-radius: 99px;
+}
+
+.batch-line {
+  display: block;
+  margin-top: 4px;
+  color: #64748b;
+}
+
+/* 表单 */
 .heading {
   display: flex;
   align-items: start;
@@ -146,7 +257,11 @@ button {
   background: var(--primary);
   color: #ffffff;
   border-color: var(--primary);
-  padding: 0 14px;
+}
+
+.danger {
+  color: var(--secondary);
+  border-color: color-mix(in srgb, var(--secondary) 40%, var(--border));
 }
 
 .field-grid {
@@ -165,22 +280,136 @@ label span {
   font-size: 13px;
 }
 
-input {
+input,
+select {
   width: 100%;
   min-height: 42px;
   border-radius: 7px;
   border: 1px solid var(--border);
   padding: 0 12px;
+  background: #ffffff;
 }
 
-.records {
+input[readonly] {
+  background: #f1f5fb;
+  color: #475569;
+}
+
+.form-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+/* 时间轴 */
+.timeline {
+  display: grid;
+  gap: 8px;
+}
+
+.lane {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  align-items: center;
+  gap: 10px;
+}
+
+.lane-name {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 600;
+}
+
+.lane-track {
+  position: relative;
+  height: 30px;
+  border-radius: 6px;
+  background: #eef3fa;
+  border: 1px solid var(--border);
+}
+
+.seg-block {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 22px;
+  padding: 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.axis {
+  position: relative;
+  height: 18px;
+  margin-left: 120px;
+}
+
+.axis span {
+  position: absolute;
+  transform: translateX(-50%);
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+/* 冲突清单 */
+.conflict-list {
   display: grid;
   gap: 12px;
 }
 
-.records article {
+.conflict {
+  border: 1px solid color-mix(in srgb, var(--secondary) 35%, var(--border));
+  border-left: 5px solid var(--secondary);
+  border-radius: 8px;
+  padding: 14px;
+  background: #fff8f7;
+}
+
+.conflict-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.conflict-head span {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.conflict ul {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  color: #7f1d1d;
+  line-height: 1.7;
+  font-size: 13px;
+}
+
+.conflict-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.conflict-foot small {
+  color: #64748b;
+}
+
+/* 整场预览 */
+.rundown {
   display: grid;
-  grid-template-columns: 54px 1fr;
+  gap: 12px;
+}
+
+.cue {
+  display: grid;
+  grid-template-columns: 54px 1fr auto;
   gap: 14px;
   align-items: center;
   padding: 14px;
@@ -189,34 +418,35 @@ input {
   background: #fbfdff;
 }
 
-.records b {
+.cue b {
   display: grid;
   place-items: center;
   height: 44px;
   border-radius: 8px;
   color: #ffffff;
-  background: linear-gradient(135deg, var(--primary), var(--accent));
 }
 
-.records h3 {
+.cue h3 {
   margin-bottom: 6px;
 }
 
-.records p {
+.cue p {
   margin: 0;
   color: #526071;
   line-height: 1.6;
+  font-size: 13px;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
   .metrics,
   .workspace,
+  .workspace.bottom,
   .field-grid {
     grid-template-columns: 1fr;
   }
 
   .hero {
-    min-height: 210px;
+    min-height: 200px;
     padding: 24px;
   }
 }
